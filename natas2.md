@@ -176,9 +176,3 @@ Directory listing should usually be disabled unless there is a clear reason to a
 - Image paths, script paths, and stylesheet paths can reveal directories.
 - Directory listing can expose files inside a folder.
 - A file that is not visible on the page may still be accessible by URL.
-
----
-
-## Next Level
-
-Use the password found in `users.txt` to log in to **Natas 3**.

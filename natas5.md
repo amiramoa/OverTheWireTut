@@ -181,9 +181,3 @@ Important login and permission checks should be validated on the server.
 - `Cookie: loggedin=1` is the important header for this level.
 - Login state should be validated on the server.
 - Client-controlled values should not be trusted blindly.
-
----
-
-## Next Level
-
-Use the password shown after changing the cookie to log in to **Natas 6**.

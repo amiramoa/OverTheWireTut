@@ -119,9 +119,3 @@ Sensitive information should stay on the server and only be shown to users who a
 - HTML comments are hidden visually, but not protected.
 - Anything sent to the browser can be inspected by the user.
 - Viewing source is one of the first things to try in web challenges.
-
----
-
-## Next Level
-
-Use the password found in the HTML comment to log in to **Natas 1**.

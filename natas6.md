@@ -1,99 +1,168 @@
 # Natas 6
 
-## English
+## What This Level Teaches
 
-### What This Level Will Cover
+This level introduces **server-side source code**, PHP `include` files, and the difference between code that runs on the server and HTML that is sent to the browser.
 
-This file is a placeholder for the next walkthrough.
+The main lesson is:
 
-The solution has not been written yet, so this file only contains the starting information for the level.
+> **Source code can reveal how an application checks your input.**
 
-### Goal
+If a challenge gives you access to the source code, read it carefully and follow any referenced files.
+
+---
+
+## Goal
 
 Find the password for **`natas7`**.
 
-### Login
+## Login
 
 - **URL:** `http://natas6.natas.labs.overthewire.org`
 - **Username:** `natas6`
 - **Password:** `7mhjtShJAcld2NYbKHEadnhEwRn2P8VT`
 
-### Walkthrough
+---
 
-Solve the level first, then fill in the walkthrough here.
+## Walkthrough
 
-Suggested structure:
+### 1. Open the Natas 6 Page
 
-#### 1. Open the Natas 6 Page
+Go to:
 
-Add the first observation here.
+```text
+http://natas6.natas.labs.overthewire.org
+```
 
-#### 2. Identify the Clue
+Log in with the username and password above.
 
-Explain what looked important and why.
+The page shows a form asking for a secret.
 
-#### 3. Test the Idea
+### 2. View the Source Code
 
-Describe the command, browser action, or request used to test the idea.
+The page provides a link to view the source code.
 
-#### 4. Get the Next Password
+Open that source code and look for how the form input is checked.
 
-Explain where the next password appeared.
+You should see logic similar to this:
 
-### Key Takeaways
+```php
+if(array_key_exists("submit", $_POST)) {
+    if($secret == $_POST['secret']) {
+        print "Access granted. The password for natas7 is ...";
+    } else {
+        print "Wrong secret";
+    }
+}
+```
 
-Add the main lesson after solving the level.
+This tells us the submitted form value is compared against a variable named:
 
-### Next Level
+```text
+$secret
+```
 
-Use the password found in this level to log in to **Natas 7**.
+### 3. Find Where `$secret` Comes From
+
+Near the top of the source code, there is an `include` line:
+
+```php
+include "includes/secret.inc";
+```
+
+This means the PHP file loads extra code from another file.
+
+The interesting path is:
+
+```text
+includes/secret.inc
+```
+
+### 4. Open the Included File
+
+Open the included file directly in the browser:
+
+```text
+http://natas6.natas.labs.overthewire.org/includes/secret.inc
+```
+
+Inside that file, the secret is:
+
+```text
+FOEIUWGHFEEUHOFUOIU
+```
+
+### 5. Submit the Secret
+
+Go back to the Natas 6 page and enter:
+
+```text
+FOEIUWGHFEEUHOFUOIU
+```
+
+Submit the form.
+
+The page returns the password for **Natas 7**.
 
 ---
 
-## Norsk
+## How Did We Know to Check `includes/secret.inc`?
 
-### Hva Dette Nivået Skal Dekke
+The source code tells us that the form checks user input against `$secret`.
 
-Denne filen er en plassholder for neste gjennomgang.
+The reasoning is:
 
-Løsningen er ikke skrevet ennå, så filen inneholder bare startinformasjonen for nivået.
+1. The page asks for a secret.
+2. The source code shows the submitted value is compared to `$secret`.
+3. The code imports another file with `include "includes/secret.inc"`.
+4. That included file likely defines the `$secret` variable.
+5. If the file is publicly accessible, we can open it directly.
+6. The file reveals the secret needed by the form.
 
-### Mål
+---
 
-Finn passordet til **`natas7`**.
+## What Is Server-Side Code?
 
-### Innlogging
+Server-side code runs on the web server before the browser receives the page.
 
-- **URL:** `http://natas6.natas.labs.overthewire.org`
-- **Brukernavn:** `natas6`
-- **Passord:** `7mhjtShJAcld2NYbKHEadnhEwRn2P8VT`
+PHP is a server-side language. The server executes the PHP code and sends the result, usually HTML, to the browser.
 
-### Gjennomgang
+Normally, users do not see the PHP source code. They only see the output.
 
-Løs nivået først, og fyll deretter inn gjennomgangen her.
+In this level, the challenge intentionally provides a source-code view. That lets us understand how the application works.
 
-Foreslått struktur:
+---
 
-#### 1. Åpne Natas 6-siden
+## What Is `include`?
 
-Skriv inn den første observasjonen her.
+In PHP, `include` loads another file into the current script.
 
-#### 2. Finn Hintet
+For example:
 
-Forklar hva som virket viktig, og hvorfor.
+```php
+include "includes/secret.inc";
+```
 
-#### 3. Test Ideen
+This is useful for reusing code or storing values in separate files.
 
-Beskriv kommandoen, nettleserhandlingen eller forespørselen som ble brukt for å teste ideen.
+The risk is that if the included file is placed somewhere public, a visitor may be able to request it directly by URL.
 
-#### 4. Finn Neste Passord
+---
 
-Forklar hvor neste passord dukket opp.
+## Security Lesson
 
-### Viktige Punkter
+Do not place sensitive files where the web server can serve them directly.
 
-Legg til hovedlærdommen etter at nivået er løst.
+The secret was stored in a separate file, but that file was still inside a web-accessible directory. Because the server allowed us to open it, the secret was exposed.
 
-### Neste Nivå
+Sensitive configuration files should be stored outside the public web root, or the server should be configured to block direct access to them.
 
-Bruk passordet du finner i dette nivået til å logge inn på **Natas 7**.
+---
+
+## Key Takeaways
+
+- Read provided source code carefully.
+- Look for variables used in security checks.
+- Follow included or referenced files.
+- Server-side code usually runs before the browser sees anything.
+- Files used by server-side code should not be directly accessible from the web.

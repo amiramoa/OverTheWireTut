@@ -140,9 +140,3 @@ Real access control should be based on authentication, authorization, and server
 - Users can modify headers with tools like `curl`.
 - Trusting client-controlled headers for authorization is unsafe.
 - The correct spelling of the header is `Referer`.
-
----
-
-## Next Level
-
-Use the password returned by the modified request to log in to **Natas 5**.

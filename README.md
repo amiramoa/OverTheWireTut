@@ -27,10 +27,13 @@ Natas focuses on web security, so these notes introduce ideas such as:
 - [Natas 3](natas3.md)
 - [Natas 4](natas4.md)
 - [Natas 5](natas5.md)
+- [Natas 6](natas6.md)
+- [Natas 7](natas7.md)
+- [Natas 8](natas8.md)
 
 ## In Progress
 
-- [Natas 6](natas6.md)
+- [Natas 9](natas9.md)
 
 ---
 
@@ -46,7 +49,6 @@ Each solved level usually includes:
 - Explanation of new terms
 - Security lesson
 - Key takeaways
-- Next level note
 
 The notes are written for someone learning IT and web security from the beginning, so important terms are explained when they first appear.
 

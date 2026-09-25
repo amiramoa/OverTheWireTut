@@ -116,9 +116,3 @@ Real protection must happen on the server, before sensitive data is sent to the 
 - Anything sent to the browser can be inspected.
 - Client-side code should not contain secrets.
 - Use keyboard shortcuts or Developer Tools when mouse options are blocked.
-
----
-
-## Next Level
-
-Use the password found in the HTML comment to log in to **Natas 2**.
