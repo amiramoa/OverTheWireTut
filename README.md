@@ -30,10 +30,12 @@ Natas focuses on web security, so these notes introduce ideas such as:
 - [Natas 6](natas6.md)
 - [Natas 7](natas7.md)
 - [Natas 8](natas8.md)
+- [Natas 9](natas9.md)
+- [Natas 10](natas10.md)
 
 ## In Progress
 
-- [Natas 9](natas9.md)
+- [Natas 11](natas11.md)
 
 ---
 
